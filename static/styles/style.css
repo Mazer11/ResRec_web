@@ -1,0 +1,18 @@
+body{
+    background-color: #3A3A3A;
+}
+
+.client_order{
+    display: inline-block;
+    width: 300px;
+    height: auto;
+    background-color: aliceblue;
+    padding: 8px;
+    margin: 16px;
+    box-shadow: 8px 8px 5px #242424;
+}
+
+.addBlackBorder{
+    border: 2px solid black;
+    width: 300px;
+}
