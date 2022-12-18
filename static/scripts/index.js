@@ -38,6 +38,22 @@ const orders = [
             }
         ],
         comment: '-',
+    },
+    {
+        id: '0003',
+        status: 'Готов к выдаче',
+        time: '12:17',
+        list: [
+            {
+                name: 'Чизкейк',
+                count: '1'
+            },
+            {
+                name: 'Американо',
+                count: '1'
+            }
+        ],
+        comment: 'Кофе без сахара',
     }
 ]
 
@@ -45,12 +61,18 @@ const $main = document.getElementById('main')
 
 orders.forEach( order => {
     let html = ''
+    let class_type = ''
+
+    if (order.status == 'Готов к выдаче') 
+        class_type = `<div class="client_order_ready">`
+    else 
+        class_type = `<div class="client_order">`
 
     html = `
-    <div class="client_order">
+    ${class_type}
         <table class="addBlackBorder">
             <tr>
-                <td>${order.id}</td>
+                <td>№ ${order.id}</td>
                 <td>${order.status}</td>
                 <td>${order.time}</td>
             </tr>
@@ -70,12 +92,17 @@ orders.forEach( order => {
 
 
 
-
-
-
-
-
-
-
-
-
+function currentTime(){
+    var date_options = {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        weekday: 'long',
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric'
+    }
+    var current_date = new Date()
+document.getElementById('header_date').innerHTML = current_date.toLocaleString("ru", date_options)
+setTimeout("currentTime()", 1000)
+}
