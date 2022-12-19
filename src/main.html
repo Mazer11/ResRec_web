@@ -55,36 +55,48 @@
             };
             const app = initializeApp(firebaseConfig);
             const db = getDatabase(app);
-            const ordersRef = ref(db, 'orders')
+            const dbRef = ref(db);
+            const ordersRef = ref(db, '/orders')
             
             
 
-            // onValue(ordersRef, (snapshot) => {
-            //     const data = snapshot.val();
-            //     addOrder(data)
-            // })
+            onValue(ordersRef, (snapshot) => {
+                const $main = document.getElementById('main')
+                $main.innerHTML = ''
+                snapshot.forEach(order => {
+                    addOrder(order.val(), order.key);
+                })
+            })
 
             function addOrder(order, key){
                 const $main = document.getElementById('main')
 
                 let html = ''
                 let class_type = ''
+                const list = order.list
 
                 if (order.status == 'Готов к выдаче') 
-                    class_type = `<div class="client_order_ready" id=${order.id}>`
+                    class_type = `<div class="client_order_ready" id=${key}>`
                 else 
-                    class_type = `<div class="client_order" id=${order.id}>`
+                    class_type = `<div class="client_order" id=${key}>`
+
+                // var values = ''
+                // list.forEach(item => {})
 
                 html = `
                 ${class_type}
                     <table class="addBlackBorder">
                         <tr>
-                            <td>№ ${key}</td>
+                            <td>№${key}</td>
                             <td>${order.status}</td>
                             <td>${order.time}</td>
                         </tr>
                     </table>
-                   
+
+                    <span>
+
+                    </span>
+
                     <p>
                         Комментарий: ${order.comment}
                     </p>
@@ -92,23 +104,12 @@
                 `
                 $main.insertAdjacentHTML('beforeend', html)
 
-                document.getElementById(order.id).addEventListener('click', (e) =>{
-                    alert("yes")
+                const $thisOrder = document.getElementById(key)
+
+                $thisOrder.addEventListener('click', (e) =>{
+                    $thisOrder.className = "client_order_ready"
                 })
         }
-
-        function getAllData(){
-            const dbRef = ref(db);
-
-            get(child(dbRef, "orders"))
-            .then((snapshot) => {
-                snapshot.forEach(order => {
-                    addOrder(order.val(), order.key);
-                });
-            })
-        }
-
-        window.onload = getAllData;
         </script>
     
 </html>
