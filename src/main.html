@@ -42,7 +42,7 @@
         </script>
         <script type="module">
             import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-            import { getDatabase, ref, onValue, child, get } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+            import { getDatabase, ref, onValue, child, get, update } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
 
             const firebaseConfig = {
                     apiKey: "AIzaSyDr8DK5CAdPxODksN0DOaOqXY9yB9r48wg",
@@ -104,8 +104,15 @@
                 const $thisOrder = document.getElementById(key)
 
                 $thisOrder.addEventListener('click', (e) =>{
-                    $thisOrder.className = "client_order_ready"
+                    updateStatus(key)
                 })
+        }
+
+        function updateStatus(orderId){
+            const updates = {};
+            updates['/orders/'+orderId+'/status'] = 'Готов к выдаче';
+
+            return update(ref(db), updates);
         }
         </script>
     
