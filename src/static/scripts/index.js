@@ -1,3 +1,6 @@
+
+const $main = document.getElementById('main')
+
 const orders = [
     {
         id: '0001',
@@ -57,16 +60,14 @@ const orders = [
     }
 ]
 
-const $main = document.getElementById('main')
-
 orders.forEach( order => {
     let html = ''
     let class_type = ''
 
     if (order.status == 'Готов к выдаче') 
-        class_type = `<div class="client_order_ready">`
+        class_type = `<div class="client_order_ready" id=${order.id}>`
     else 
-        class_type = `<div class="client_order">`
+        class_type = `<div class="client_order" id=${order.id}>`
 
     html = `
     ${class_type}
@@ -88,21 +89,8 @@ orders.forEach( order => {
     </div>
     `
     $main.insertAdjacentHTML('beforeend', html)
+
+    document.getElementById(order.id).addEventListener('click', (e) =>{
+        
+    })
 })
-
-
-
-function currentTime(){
-    var date_options = {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-        weekday: 'long',
-        hour: 'numeric',
-        minute: 'numeric',
-        second: 'numeric'
-    }
-    var current_date = new Date()
-document.getElementById('header_date').innerHTML = current_date.toLocaleString("ru", date_options)
-setTimeout("currentTime()", 1000)
-}

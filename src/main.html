@@ -21,9 +21,94 @@
 
         <!-- Body with orders -->
         <div id="main"></div>
-
-        <script src="static/scripts/index.js"></script>
-        <script>currentTime();</script>
     </body>
+        <script>
+            currentTime();
 
+            function currentTime(){
+            var date_options = {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                weekday: 'long',
+                hour: 'numeric',
+                minute: 'numeric',
+                second: 'numeric'
+            }
+            var current_date = new Date()
+        document.getElementById('header_date').innerHTML = current_date.toLocaleString("ru", date_options)
+        setTimeout("currentTime()", 1000)
+        }
+        </script>
+        <script type="module">
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
+            import { getDatabase, ref, onValue, child, get } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+
+            const firebaseConfig = {
+                    apiKey: "AIzaSyDr8DK5CAdPxODksN0DOaOqXY9yB9r48wg",
+                    authDomain: "kursovaya-5fdc1.firebaseapp.com",
+                    databaseURL: "https://kursovaya-5fdc1-default-rtdb.europe-west1.firebasedatabase.app",
+                    projectId: "kursovaya-5fdc1",
+                    storageBucket: "kursovaya-5fdc1.appspot.com",
+                    messagingSenderId: "197701475565",
+                    appId: "1:197701475565:web:be8f3c0433e27bfa3000e4"
+            };
+            const app = initializeApp(firebaseConfig);
+            const db = getDatabase(app);
+            const ordersRef = ref(db, 'orders')
+            
+            
+
+            // onValue(ordersRef, (snapshot) => {
+            //     const data = snapshot.val();
+            //     addOrder(data)
+            // })
+
+            function addOrder(order, key){
+                const $main = document.getElementById('main')
+
+                let html = ''
+                let class_type = ''
+
+                if (order.status == 'Готов к выдаче') 
+                    class_type = `<div class="client_order_ready" id=${order.id}>`
+                else 
+                    class_type = `<div class="client_order" id=${order.id}>`
+
+                html = `
+                ${class_type}
+                    <table class="addBlackBorder">
+                        <tr>
+                            <td>№ ${key}</td>
+                            <td>${order.status}</td>
+                            <td>${order.time}</td>
+                        </tr>
+                    </table>
+                   
+                    <p>
+                        Комментарий: ${order.comment}
+                    </p>
+                </div>
+                `
+                $main.insertAdjacentHTML('beforeend', html)
+
+                document.getElementById(order.id).addEventListener('click', (e) =>{
+                    alert("yes")
+                })
+        }
+
+        function getAllData(){
+            const dbRef = ref(db);
+
+            get(child(dbRef, "orders"))
+            .then((snapshot) => {
+                snapshot.forEach(order => {
+                    addOrder(order.val(), order.key);
+                });
+            })
+        }
+
+        window.onload = getAllData;
+        </script>
+    
 </html>

@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>Firebase Authentication</title>
-<link rel="stylesheet" href="cssFile.css">
+<link rel="stylesheet" href="static/styles/style.css">
 </head>
 
 <body>
@@ -17,13 +17,15 @@
 
   </div>
 </div>
+
+
+
 </body>
 
 <script type="module">
   // Import the functions you need from the SDKs you need
   import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
-  import { getDatabase, set, ref, update } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
-  import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
+  import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
   // TODO: Add SDKs for Firebase products that you want to use
   // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -40,7 +42,6 @@
 
   // Initialize Firebase
   const app = initializeApp(firebaseConfig);
-  const database = getDatabase(app);
   const auth = getAuth();
 
  login.addEventListener('click',(e)=>{
