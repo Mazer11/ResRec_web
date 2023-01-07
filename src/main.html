@@ -73,7 +73,7 @@
 
                 let html = ''
                 let class_type = ''
-                const list = order.list
+                const list = order.dishes
 
                 if (order.status == 'Готов к выдаче') 
                     class_type = `<div class="client_order_ready" id=${key}>`
@@ -95,7 +95,7 @@
                             ).join('')
                         }
                     <p>
-                        Комментарий: ${order.comment}
+                        Комментарий: ${order.note}
                     </p>
                 </div>
                 `
