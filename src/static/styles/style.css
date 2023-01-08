@@ -9,7 +9,7 @@ header{
 
 .client_order{
     display: inline-block;
-    width: 300px;
+    width: auto;
     height: auto;
     background-color: aliceblue;
     padding: 8px;
@@ -19,7 +19,7 @@ header{
 
 .client_order_ready{
     display: inline-block;
-    width: 300px;
+    width: auto;
     height: auto;
     background-color: burlywood;
     padding: 8px;
