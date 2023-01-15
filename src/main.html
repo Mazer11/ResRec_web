@@ -43,6 +43,7 @@
         <script type="module">
             import { initializeApp } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js";
             import { getDatabase, ref, onValue, child, get, update } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js";
+            import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.15.0/firebase-auth.js";
 
             const firebaseConfig = {
                     apiKey: "AIzaSyDr8DK5CAdPxODksN0DOaOqXY9yB9r48wg",
@@ -54,6 +55,7 @@
                     appId: "1:197701475565:web:be8f3c0433e27bfa3000e4"
             };
             const app = initializeApp(firebaseConfig);
+            const auth = getAuth();
             const db = getDatabase(app);
             const dbRef = ref(db);
             const ordersRef = ref(db, '/orders')
